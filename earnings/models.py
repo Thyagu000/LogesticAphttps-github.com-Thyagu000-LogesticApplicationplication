@@ -8,6 +8,7 @@ class DriverEarning(models.Model):
     earning_amount = models.DecimalField(max_digits=12, decimal_places=2)
     commission_amount = models.DecimalField(max_digits=12, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
+    id=models.AutoField(primary_key=True)
 
 
 class Payout(models.Model):
