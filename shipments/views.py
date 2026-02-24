@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -227,3 +228,8 @@ class BulkUpdateShipmentStatusAPIView(APIView):
             {"message": f"{updated_count} shipments updated successfully"},
             status=200
         )
+=======
+from django.shortcuts import render
+
+# Create your views here.
+>>>>>>> afec8438f19ed7e8aecde76a5ff0f7d6dda38b82
