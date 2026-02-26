@@ -50,8 +50,9 @@ INSTALLED_APPS = [
     'payments',
     'tenants',
     'tracking',
-    'wabhooks',
 ]
+
+AUTH_USER_MODEL = 'users.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
