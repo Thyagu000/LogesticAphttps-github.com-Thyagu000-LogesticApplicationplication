@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'payments',
     'tenants',
     'tracking',
-]
+
 
 AUTH_USER_MODEL = 'users.User'
 
