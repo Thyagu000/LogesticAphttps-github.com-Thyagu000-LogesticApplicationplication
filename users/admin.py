@@ -1,3 +1,9 @@
 from django.contrib import admin
+from .models import User, Role, UserRole, Permission, RolePermission
 
-# Register your models here.
+# Register your models so they show up in the Admin dashboard
+admin.site.register(User)
+admin.site.register(Role)
+admin.site.register(UserRole)
+admin.site.register(Permission)
+admin.site.register(RolePermission)
