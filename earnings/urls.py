@@ -1,15 +1,10 @@
 from django.urls import path
-from .views import (
-    DriverEarningsView,
-    PayoutListView,
-    PayoutDetailView,
-    ProcessPayoutView
-)
+from . import views
 
 urlpatterns = [
-
-    path('drivers/<int:id>/earnings/', DriverEarningsView.as_view()),
-    path('payouts/', PayoutListView.as_view()),
-    path('payouts/<int:id>/', PayoutDetailView.as_view()),
-    path('payouts/process/', ProcessPayoutView.as_view()),
+    path('', views.EarningsListView.as_view(), name='earnings-list'),  # /api/earnings/
+    path('drivers/<int:driver_id>/', views.DriverEarningsView.as_view(), name='driver-earnings'),  # /api/earnings/drivers/1/
+    path('payouts/', views.PayoutListView.as_view(), name='payout-list'),  # /api/earnings/payouts/
+    path('payouts/<int:id>/', views.PayoutDetailView.as_view(), name='payout-detail'),  # /api/earnings/payouts/1/
+    path('payouts/process/', views.PayoutProcessView.as_view(), name='payout-process'),  # /api/earnings/payouts/process/
 ]

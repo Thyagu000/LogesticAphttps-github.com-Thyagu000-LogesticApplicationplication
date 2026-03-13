@@ -37,8 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-     'rest_framework',   
-    'shipment'
+    'rest_framework',   
+    'shipment',
+    'parcelmanagement',
 ]
 
 MIDDLEWARE = [
@@ -51,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'percelmanagement.urls'
+ROOT_URLCONF = 'parcelmanagement.urls'
 
 TEMPLATES = [
     {
@@ -68,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'percelmanagement.wsgi.application'
+WSGI_APPLICATION = 'parcelmanagement.wsgi.application'
 
 
 # Database

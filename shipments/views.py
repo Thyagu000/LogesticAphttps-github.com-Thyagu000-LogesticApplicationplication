@@ -10,12 +10,7 @@ from drivers.models import DriverProfile
 
 
 STATUS_FLOW = [
-    "Created",
-    "Assigned",
-    "Picked Up",
-    "In Transit",
-    "Out for Delivery",
-    "Delivered"
+    "Created", "Assigned", "Picked Up", "In Transit", "Out for Delivery", "Delivered"
 ]
 
 FAILURE_STATUSES = ["Cancelled", "RTO", "Delivery Failed"]
@@ -97,10 +92,7 @@ class AssignDriverAPIView(APIView):
             )
 
         if shipment.status != "Created":
-            return Response(
-                {"error": "Driver can only be assigned when status is Created"},
-                status=400
-            )
+            return Response({"error": "Driver can only be assigned when status is Created"}, status=400)
 
         driver_id = request.data.get("driver_id")
 
@@ -179,7 +171,6 @@ class UpdateShipmentStatusAPIView(APIView):
 
         shipment.status = new_status
         shipment.save()
-
         return Response({"message": "Status updated successfully"}, status=200)
 
 
@@ -232,7 +223,6 @@ class BulkUpdateShipmentStatusAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-
         shipment_ids = request.data.get("shipment_ids")
         new_status = request.data.get("status")
         user = request.user
@@ -253,7 +243,6 @@ class BulkUpdateShipmentStatusAPIView(APIView):
             )
 
         updated_count = 0
-
         for shipment in shipments:
 
             if shipment.status == "Delivered":
@@ -268,6 +257,10 @@ class BulkUpdateShipmentStatusAPIView(APIView):
             try:
                 current_index = STATUS_FLOW.index(shipment.status)
                 new_index = STATUS_FLOW.index(new_status)
+                if new_index == current_index + 1:
+                    shipment.status = new_status
+                    shipment.save()
+                    updated_count += 1
             except ValueError:
                 continue
 

@@ -1,56 +1,48 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from django.shortcuts import get_object_or_404
-from drivers.models import DriverProfile
+from django.views import View
+from django.http import JsonResponse
 from .models import DriverEarning, Payout
-from .serializers import DriverEarningSerializer, PayoutSerializer
-from .services import process_payout
-class DriverEarningsView(APIView):
 
-    def get(self, request, id):
-
-        earnings = DriverEarning.objects.filter(driver_id=id)
-        serializer = DriverEarningSerializer(earnings, many=True)
-
-        return Response({
-            "message": "Driver earnings fetched",
-            "data": serializer.data
-        })
-class PayoutListView(APIView):
-
+# List all earnings
+class EarningsListView(View):
     def get(self, request):
-        payouts = Payout.objects.all()
-        serializer = PayoutSerializer(payouts, many=True)
+        earnings = DriverEarning.objects.all().values(
+            'id', 'driver_id', 'shipment_id', 'earning_amount', 'commission_amount', 'is_paid', 'created_at'
+        )
+        return JsonResponse(list(earnings), safe=False)
 
-        return Response({
-            "message": "Payout list",
-            "data": serializer.data
-        })
-class PayoutDetailView(APIView):
+# Earnings for a specific driver
+class DriverEarningsView(View):
+    def get(self, request, driver_id):
+        earnings = DriverEarning.objects.filter(driver_id=driver_id).values(
+            'id', 'shipment_id', 'earning_amount', 'commission_amount', 'is_paid', 'created_at'
+        )
+        return JsonResponse(list(earnings), safe=False)
 
+# List all payouts
+class PayoutListView(View):
+    def get(self, request):
+        payouts = Payout.objects.all().values(
+            'id', 'driver_id', 'total_amount', 'payout_status', 'refernce_id', 'created_at', 'processed_at'
+        )
+        return JsonResponse(list(payouts), safe=False)
+
+# Payout detail
+class PayoutDetailView(View):
     def get(self, request, id):
-        payout = get_object_or_404(Payout, id=id)
-        serializer = PayoutSerializer(payout)
+        try:
+            payout = Payout.objects.filter(id=id).values(
+                'id', 'driver_id', 'total_amount', 'payout_status', 'refernce_id', 'created_at', 'processed_at'
+            ).first()
+            if payout:
+                return JsonResponse(payout)
+            return JsonResponse({'error': 'Payout not found'}, status=404)
+        except Payout.DoesNotExist:
+            return JsonResponse({'error': 'Payout not found'}, status=404)
 
-        return Response({
-            "message": "Payout details",
-            "data": serializer.data
-        })
-class ProcessPayoutView(APIView):
-
+# Process payouts (example endpoint)
+class PayoutProcessView(View):
     def post(self, request):
-
-        driver_id = request.data.get('driver_id')
-        earning_ids = request.data.get('earning_ids', [])
-
-        driver = get_object_or_404(DriverProfile, id=driver_id)
-
-        payout = process_payout(driver, earning_ids)
-
-        serializer = PayoutSerializer(payout)
-
-        return Response({
-            "message": "Payout processed successfully",
-            "data": serializer.data
-        }, status=status.HTTP_200_OK)
+        # Example: Mark all pending payouts as processing
+        pending_payouts = Payout.objects.filter(payout_status='PENDING')
+        updated_count = pending_payouts.update(payout_status='PROCESSING')
+        return JsonResponse({'message': f'{updated_count} payouts set to PROCESSING'})
