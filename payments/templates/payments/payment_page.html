@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payments</title>
+    <style>
+        body { font-family: Arial; margin: 30px; }
+        input { padding: 6px; width: 300px; margin-bottom: 10px; }
+        button { padding: 8px 15px; }
+
+        table { border-collapse: collapse; width: 100%; margin-top: 30px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+
+        .edit-btn {
+            background-color: green;
+            color: white;
+            padding: 5px 10px;
+            text-decoration: none;
+        }
+
+        .delete-btn {
+            background-color: red;
+            color: white;
+            padding: 5px 10px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Payment Form</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">
+        {% if edit_id %} Update Payment {% else %} Save Payment {% endif %}
+    </button>
+</form>
+
+<h2>Payment List</h2>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Shipment</th>
+        <th>Payer</th>
+        <th>Amount</th>
+        <th>Method</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for p in payments %}
+    <tr>
+        <td>{{ p.id }}</td>
+        <td>{{ p.shipment_id }}</td>
+        <td>{{ p.payer_id }}</td>
+        <td>{{ p.amount }}</td>
+        <td>{{ p.payment_method }}</td>
+        <td>{{ p.payment_status }}</td>
+        <td>
+            <a class="edit-btn" href="{% url 'edit-payment' p.id %}">Edit</a>
+            <a class="delete-btn" href="{% url 'delete-payment' p.id %}"
+               onclick="return confirm('Are you sure?')">Delete</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="7">No payments yet</td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>
