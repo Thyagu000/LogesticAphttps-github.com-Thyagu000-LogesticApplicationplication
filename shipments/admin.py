@@ -4,52 +4,27 @@ from .models import Shipment
 
 @admin.register(Shipment)
 class ShipmentAdmin(admin.ModelAdmin):
-
     list_display = (
         "id",
+        "order_number",
         "tracking_number",
-        "sender_name",
-        "receiver_name",
         "status",
-        "is_reverse",
+        "tenant",
+        "is_deleted",
         "created_at",
     )
 
     list_filter = (
         "status",
-        "is_reverse",
-        "created_at",
+        "tenant",
+        "is_deleted",
     )
 
     search_fields = (
+        "order_number",
         "tracking_number",
         "sender_name",
         "receiver_name",
     )
 
     ordering = ("-created_at",)
-
-    readonly_fields = ("created_at", "updated_at")
-
-    fieldsets = (
-        ("Shipment Info", {
-            "fields": (
-                "tracking_number",
-                "sender_name",
-                "receiver_name",
-                "address",
-            )
-        }),
-        ("Status Info", {
-            "fields": (
-                "status",
-                "is_reverse",
-            )
-        }),
-        ("Timestamps", {
-            "fields": (
-                "created_at",
-                "updated_at",
-            )
-        }),
-    )

@@ -27,6 +27,18 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = "users.User"
+
+# 2. Add Django REST Framework Configuration
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
 
 # Application definition
 
@@ -37,7 +49,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_extensions',
+
+    'rest_framework',
+    'rest_framework.authtoken',
 
     #third-party
     'auth_system',
@@ -53,11 +67,8 @@ INSTALLED_APPS = [
     'payments',
     'tenants',
     'tracking',
-    'rest_framework',       
-     
+ 
 ]
-
-AUTH_USER_MODEL = 'users.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
