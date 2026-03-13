@@ -1,0 +1,28 @@
+<h2>Register Webhook</h2>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    <label>Webhook URL</label>
+    <input type="url" name="webhook_url" required>
+
+    <br><br>
+
+    <label>Select Event</label>
+
+    <select name="event">
+
+        <option value="shipment_status_changed">Shipment Status Changed</option>
+
+        <option value="payment_update">Payment Update</option>
+
+        <option value="payout_processed">Payout Processed</option>
+
+    </select>
+
+    <br><br>
+
+    <button type="submit">Register Webhook</button>
+
+</form>
