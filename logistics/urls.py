@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 """
 URL configuration for logistics project.
 
@@ -25,21 +24,3 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('shipments.urls')),
 ]
-=======
-from django.urls import path
-from . import views
-
-urlpatterns = [
-
-path('',views.api_home),
-
-path('items/',views.get_items),
-
-path('request-item/',views.request_item),
-
-path('shipment/<int:id>/track/',views.track_shipment),
-
-path('shipment/<int:id>/update/',views.update_status),
-
-]
->>>>>>> c3899daa1dc13ebf4028e0ae9a094e26d654778b
