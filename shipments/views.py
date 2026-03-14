@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # shipments/views.py
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -73,8 +72,3 @@ def export_shipments(request):
         ])
 
     return response
-=======
-from django.shortcuts import render
-
-# Create your views here.
->>>>>>> afec8438f19ed7e8aecde76a5ff0f7d6dda38b82
