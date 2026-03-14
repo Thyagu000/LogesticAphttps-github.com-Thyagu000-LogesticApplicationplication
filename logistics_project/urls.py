@@ -1,6 +1,5 @@
-<<<<<<< HEAD
 """
-URL configuration for logistics project.
+URL configuration for logistics_project project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/6.0/topics/http/urls/
@@ -16,30 +15,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
-from shipments.views import home
-
+from django.urls import path,include
 
 urlpatterns = [
-    path('', home), 
-    path('admin/', admin.site.urls),
-    path('api/', include('shipments.urls')),
+path('admin/',admin.site.urls),
+path('api/',include('logistics.urls')),
 ]
-=======
-from django.urls import path
-from . import views
-
-urlpatterns = [
-
-path('',views.api_home),
-
-path('items/',views.get_items),
-
-path('request-item/',views.request_item),
-
-path('shipment/<int:id>/track/',views.track_shipment),
-
-path('shipment/<int:id>/update/',views.update_status),
-
-]
->>>>>>> c3899daa1dc13ebf4028e0ae9a094e26d654778b
