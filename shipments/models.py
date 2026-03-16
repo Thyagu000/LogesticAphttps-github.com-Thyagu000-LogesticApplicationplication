@@ -1,8 +1,4 @@
 from django.db import models
-from core.models import TimeStampedModel
-from tenants.models import Tenant
-from users.models import User
-from drivers.models import DriverProfile
 
 
 class Shipment(TimeStampedModel):
