@@ -27,6 +27,18 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = "users.User"
+
+# 2. Add Django REST Framework Configuration
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
 
 # Application definition
 
@@ -38,6 +50,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rest_framework',
+    'rest_framework.authtoken',
+
     #third-party
     'auth_system',
     'core',
@@ -45,12 +60,14 @@ INSTALLED_APPS = [
     'drivers',
     'shipments',
     'earnings',
+    'parcelmanagement',
+    'shipment',
     'notifications',
     'webhooks',
     'payments',
     'tenants',
     'tracking',
-    'wabhooks',
+ 
 ]
 
 MIDDLEWARE = [
@@ -129,3 +146,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+LOGIN_URL = '/admin/login/'
