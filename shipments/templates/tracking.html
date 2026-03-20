@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Shipment Tracking</title>
+
+</head>
+<body>
+
+<div class="container">
+<h2>Shipment Tracking</h2>
+
+<p><b>Order ID:</b> {{ shipment.order_id }}</p>
+<p><b>Customer:</b> {{ shipment.customer_name }}</p>
+<p><b>Status:</b> {{ shipment.status }}</p>
+<p><b>Latitude:</b> {{ shipment.latitude }}</p>
+<p><b>Longitude:</b> {{ shipment.longitude }}</p>
+<p>Status: <span id="status">Loading...</span></p>
+<p>Latitude: <span id="lat">Loading...</span></p>
+<p>Longitude: <span id="lng">Loading...</span></p>
+
+</div>
+</body>
+</html>
