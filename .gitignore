@@ -12,10 +12,13 @@ db.sqlite3
 venv/
 env/
 
-# VS Code
+# VS Code / IDEs
 .vscode/
 .idea/
 
 # OS files
 .DS_Store
 Thumbs.db
+
+# Database files
+*.db
